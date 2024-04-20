@@ -8,6 +8,8 @@ import (
 	context "context"
 	reflect "reflect"
 
+	models "github.com/SawitProRecruitment/UserService/handler/models"
+	entity "github.com/SawitProRecruitment/UserService/repository/entity"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -34,17 +36,60 @@ func (m *MockRepositoryInterface) EXPECT() *MockRepositoryInterfaceMockRecorder 
 	return m.recorder
 }
 
-// GetTestById mocks base method.
-func (m *MockRepositoryInterface) GetTestById(ctx context.Context, input GetTestByIdInput) (GetTestByIdOutput, error) {
+// CreateUser mocks base method.
+func (m *MockRepositoryInterface) CreateUser(ctx context.Context, req *models.RegisterUserRequest) (int64, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetTestById", ctx, input)
-	ret0, _ := ret[0].(GetTestByIdOutput)
+	ret := m.ctrl.Call(m, "CreateUser", ctx, req)
+	ret0, _ := ret[0].(int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetTestById indicates an expected call of GetTestById.
-func (mr *MockRepositoryInterfaceMockRecorder) GetTestById(ctx, input interface{}) *gomock.Call {
+// CreateUser indicates an expected call of CreateUser.
+func (mr *MockRepositoryInterfaceMockRecorder) CreateUser(ctx, req interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTestById", reflect.TypeOf((*MockRepositoryInterface)(nil).GetTestById), ctx, input)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockRepositoryInterface)(nil).CreateUser), ctx, req)
+}
+
+// GetUser mocks base method.
+func (m *MockRepositoryInterface) GetUser(ctx context.Context, filter *entity.UserFilter) (*entity.UserData, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUser", ctx, filter)
+	ret0, _ := ret[0].(*entity.UserData)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUser indicates an expected call of GetUser.
+func (mr *MockRepositoryInterfaceMockRecorder) GetUser(ctx, filter interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockRepositoryInterface)(nil).GetUser), ctx, filter)
+}
+
+// IncLogin mocks base method.
+func (m *MockRepositoryInterface) IncLogin(ctx context.Context, userID int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "IncLogin", ctx, userID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// IncLogin indicates an expected call of IncLogin.
+func (mr *MockRepositoryInterfaceMockRecorder) IncLogin(ctx, userID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IncLogin", reflect.TypeOf((*MockRepositoryInterface)(nil).IncLogin), ctx, userID)
+}
+
+// UpdateProfile mocks base method.
+func (m *MockRepositoryInterface) UpdateProfile(ctx context.Context, userID int64, req *models.UpdateUserProfileRequest) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateProfile", ctx, userID, req)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateProfile indicates an expected call of UpdateProfile.
+func (mr *MockRepositoryInterfaceMockRecorder) UpdateProfile(ctx, userID, req interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateProfile", reflect.TypeOf((*MockRepositoryInterface)(nil).UpdateProfile), ctx, userID, req)
 }
