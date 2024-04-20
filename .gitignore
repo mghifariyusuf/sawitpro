@@ -28,3 +28,9 @@ build
 
 # Generated
 generated
+
+# RSA key files
+id_rsa*
+
+# Generated from IDE
+.idea/
