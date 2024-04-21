@@ -1,4 +1,4 @@
-package token
+package handler
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func NewJWT(privateKey []byte, publicKey []byte) JWT {
 	}
 }
 
-func (j *JWT) Generate(userID int64) (string, error) {
+func (j *JWT) GenerateToken(userID int64) (string, error) {
 	// Parse private key
 	key, err := jwt.ParseRSAPrivateKeyFromPEM(j.privateKey)
 	if err != nil {
@@ -43,7 +43,7 @@ func (j *JWT) Generate(userID int64) (string, error) {
 	return token, nil
 }
 
-func (j *JWT) Validate(headerAuthorization string) (jwt.MapClaims, error) {
+func (j *JWT) ValidateToken(headerAuthorization string) (jwt.MapClaims, error) {
 	// Check token type
 	authorization := strings.Split(headerAuthorization, " ")
 	if len(authorization) == 0 || len(authorization) > 2 {

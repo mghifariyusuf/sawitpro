@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/SawitProRecruitment/UserService/handler"
-	"github.com/SawitProRecruitment/UserService/handler/helper/token"
 	"github.com/SawitProRecruitment/UserService/repository"
 	"github.com/labstack/echo/v4"
 )
@@ -28,7 +27,7 @@ func main() {
 
 	opts := handler.NewServerOptions{
 		Repository: repo,
-		JWT:        token.NewJWT(prvKey, pubKey),
+		JWT:        handler.NewJWT(prvKey, pubKey),
 	}
 
 	handler.NewServer(opts).RegisterHandlers(e)

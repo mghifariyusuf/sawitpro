@@ -1,19 +1,18 @@
 package handler
 
 import (
-	"github.com/SawitProRecruitment/UserService/handler/helper/token"
 	"github.com/SawitProRecruitment/UserService/repository"
 	"github.com/labstack/echo/v4"
 )
 
 type Server struct {
 	Repository repository.RepositoryInterface
-	JWT        token.JWT
+	JWT        JWT
 }
 
 type NewServerOptions struct {
 	Repository repository.RepositoryInterface
-	JWT        token.JWT
+	JWT        JWT
 }
 
 func NewServer(opts NewServerOptions) *Server {

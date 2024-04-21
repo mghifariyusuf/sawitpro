@@ -1,15 +1,15 @@
-package password
+package handler
 
 import "golang.org/x/crypto/bcrypt"
 
-func Validate(password, phoneNumber, hashedPassword string) error {
+func ValidatePassword(password, phoneNumber, hashedPassword string) error {
 	// Concatenate the password and phone number to add uniqueness
 	passwordWithSalt := password + phoneNumber
 
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(passwordWithSalt))
 }
 
-func Hash(password, phoneNumber string) (string, error) {
+func HashPassword(password, phoneNumber string) (string, error) {
 	// Concatenate the password and phone number to add uniqueness
 	passwordWithSalt := password + phoneNumber
 

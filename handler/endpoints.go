@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 
-	"github.com/SawitProRecruitment/UserService/handler/helper/password"
 	"github.com/SawitProRecruitment/UserService/handler/models"
 	"github.com/SawitProRecruitment/UserService/repository/entity"
 	"github.com/labstack/echo/v4"
@@ -29,7 +28,7 @@ func (server *Server) RegisterUser(c echo.Context) error {
 		})
 	}
 
-	hashedPassword, err := password.Hash(registerRequest.Password, registerRequest.PhoneNumber)
+	hashedPassword, err := HashPassword(registerRequest.Password, registerRequest.PhoneNumber)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Failed to generate hashed password",
@@ -79,7 +78,7 @@ func (server *Server) LoginUser(c echo.Context) error {
 	}
 
 	// Compare password from request and db
-	err = password.Validate(loginRequest.Password, user.PhoneNumber, user.Password)
+	err = ValidatePassword(loginRequest.Password, user.PhoneNumber, user.Password)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Authentication failed",
@@ -88,7 +87,7 @@ func (server *Server) LoginUser(c echo.Context) error {
 	}
 
 	// Generate JWT token
-	token, err := server.JWT.Generate(user.ID)
+	token, err := server.JWT.GenerateToken(user.ID)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Failed to generate token",
@@ -123,7 +122,7 @@ func (server *Server) GetUserProfile(c echo.Context) error {
 	}
 
 	// Parse JWT to get token claims
-	claims, err := server.JWT.Validate(headerAuthorization)
+	claims, err := server.JWT.ValidateToken(headerAuthorization)
 	if err != nil {
 		return c.JSON(http.StatusForbidden, models.ErrorResponse{
 			Message: "Failed to validate token",
@@ -173,7 +172,7 @@ func (server *Server) UpdateUserProfile(c echo.Context) error {
 	}
 
 	// Parse JWT to get token claims
-	claims, err := server.JWT.Validate(headerAuthorization)
+	claims, err := server.JWT.ValidateToken(headerAuthorization)
 	if err != nil {
 		return c.JSON(http.StatusForbidden, models.ErrorResponse{
 			Message: "Failed to validate token",
