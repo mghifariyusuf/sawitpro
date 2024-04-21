@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/SawitProRecruitment/UserService/handler"
@@ -20,11 +19,11 @@ func main() {
 
 	prvKey, err := os.ReadFile("id_rsa")
 	if err != nil {
-		log.Fatalln(err)
+		e.Logger.Fatal(err)
 	}
 	pubKey, err := os.ReadFile("id_rsa.pub")
 	if err != nil {
-		log.Fatalln(err)
+		e.Logger.Fatal(err)
 	}
 
 	opts := handler.NewServerOptions{

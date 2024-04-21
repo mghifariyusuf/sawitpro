@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"net/http"
-
 	"github.com/SawitProRecruitment/UserService/handler/helper/token"
 	"github.com/SawitProRecruitment/UserService/repository"
 	"github.com/labstack/echo/v4"
@@ -27,10 +25,6 @@ func NewServer(opts NewServerOptions) *Server {
 
 // RegisterHandlers to register all endpoints
 func (server *Server) RegisterHandlers(e *echo.Echo) {
-	e.GET("/ping", func(c echo.Context) error {
-		return c.String(http.StatusOK, "PONG")
-	})
-
 	e.POST("/register", func(c echo.Context) error {
 		return server.RegisterUser(c)
 	})

@@ -46,7 +46,7 @@ func (server *Server) RegisterUser(c echo.Context) error {
 		})
 	}
 
-	return c.JSON(http.StatusCreated, models.RegisterUserResponse{
+	return c.JSON(http.StatusOK, models.RegisterUserResponse{
 		ID: id,
 	})
 }
